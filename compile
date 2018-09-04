@@ -1,0 +1,10 @@
+
+#
+# it's run from `npm run dev-solc`
+#
+
+SOLCJS=./node_modules/.bin/solcjs
+
+for contract in `ls contracts`; do
+  $SOLCJS --abi --bin --optimize --output-dir=./dist contracts/$contract &
+done

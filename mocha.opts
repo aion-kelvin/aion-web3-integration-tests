@@ -10,5 +10,5 @@
 --reporter spec
 
 # many operations are async so we wait a while longer
---slow 2000
---timeout 20000
+--slow 100000
+--timeout 100000

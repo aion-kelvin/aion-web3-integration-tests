@@ -12,13 +12,18 @@ let typesAbiPath = path.join(distPath, 'Types.abi')
 
 // account to use for deploying and calling contract
 let testAddress = '0xa0450c4333e72ed26552d7462c0b3669924eec816a219b3960d5b3f0b33f7444';
-let testPassword = 'put-real-password-here';
+let testPassword = 'pwGoesHere';
 
 /*
 
 load from ../dist/contract.bin?
 
 */
+
+
+function random(from, to){
+    return Math.floor(Math.random() * (to - from + 1)) + from
+}
 
 function deployCt(ct, ctData, args, cb) { 
     return ct.deploy( {data: ctData, arguments: args} )
@@ -108,25 +113,25 @@ describe('contracts', () => {
   }
 
   let cases = [
-    {method: 'testMix', args: [mixString, mixFixedUint128Array, mixBool, mixDynamicBytes32Array]},
+    //{method: 'testMix', args: [mixString, mixFixedUint128Array, mixBool, mixDynamicBytes32Array]},
     {method: 'testBool', args: [true]},
-    /*{method: 'testInt8', args: []},
-    {method: 'testInt16', args: []},
-    {method: 'testInt24', args: []},
-    {method: 'testInt32', args: []},
-    {method: 'testInt40', args: []},
-    {method: 'testInt48', args: []},
-    {method: 'testInt56', args: []},
-    {method: 'testInt64', args: []},
-    {method: 'testInt72', args: []},
-    {method: 'testInt80', args: []},
-    {method: 'testInt88', args: []},
-    {method: 'testInt96', args: []},
-    {method: 'testInt104', args: []},
-    {method: 'testInt112', args: []},
-    {method: 'testInt120', args: []},
-    {method: 'testInt128', args: []},
-    {method: 'testInt', args: []},
+    {method: 'testInt8', args: [random(-2 ^ 8, 2 ^ 8 -1)]},
+    {method: 'testInt16', args: [random(-2 ^ 16, 2 ^ 16 -1)]},
+    {method: 'testInt24', args: [random(-2 ^ 24, 2 ^ 24 -1)]},
+    {method: 'testInt32', args: [random(-2 ^ 32, 2 ^ 32 -1)]},
+    {method: 'testInt40', args: [random(-2 ^ 40, 2 ^ 40 -1)]},
+    {method: 'testInt48', args: [random(-2 ^ 48, 2 ^ 48 -1)]},
+    {method: 'testInt56', args: [random(-2 ^ 56, 2 ^ 56 -1)]},
+    {method: 'testInt64', args: [random(-2 ^ 64, 2 ^ 64 -1)]},
+    {method: 'testInt72', args: [random(-2 ^ 72, 2 ^ 72 -1)]},
+    {method: 'testInt80', args: [random(-2 ^ 80, 2 ^ 80 -1)]},
+    {method: 'testInt88', args: [random(-2 ^ 88, 2 ^ 88 -1)]},
+    {method: 'testInt96', args: [random(-2 ^ 96, 2 ^ 96 -1)]},
+    {method: 'testInt104', args: [random(-2 ^ 104, 2 ^ 104 -1)]},
+    {method: 'testInt112', args: [random(-2 ^ 112, 2 ^ 112 -1)]},
+    {method: 'testInt120', args: [random(-2 ^ 120, 2 ^ 120 -1)]},
+    {method: 'testInt128', args: [random(-2 ^ 128, 2 ^ 128 -1)]},
+    /*{method: 'testInt', args: []},
     {method: 'testUint8', args: []},
     {method: 'testUint16', args: []},
     {method: 'testUint24', args: []},
@@ -205,7 +210,11 @@ describe('contracts', () => {
         .call()
         .then(res => {
           console.log(method, "->", args, "->", res);
-          [res].should.eql(args)
+          if( Web3.utils.isBN(res) ) {
+              [res.toNumber()].should.eql(args)
+          } else { 
+              [res].should.eql(args)
+          }
           done()
         })
         .catch(err => {

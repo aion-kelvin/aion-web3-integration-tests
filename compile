@@ -3,8 +3,10 @@
 # it's run from `npm run dev-solc`
 #
 
-SOLCJS=./node_modules/.bin/solcjs
+#SOLCJS=./node_modules/.bin/solcjs
+export LD_LIBRARY_PATH=/home/sergiu/repos/aion/aion_fastvm/modFastVM/native/linux/solidity
+SOLCJS=/home/sergiu/repos/aion/aion_fastvm/modFastVM/native/linux/solidity/solc
 
 for contract in `ls contracts`; do
-  $SOLCJS --abi --bin --optimize --output-dir=./dist contracts/$contract &
+  $SOLCJS --abi --bin --optimize --output-dir=./dist contracts/$contract
 done

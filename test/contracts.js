@@ -12,7 +12,7 @@ let typesAbiPath = path.join(distPath, 'Types.abi')
 
 // account to use for deploying and calling contract
 let testAddress = '0xa0450c4333e72ed26552d7462c0b3669924eec816a219b3960d5b3f0b33f7444';
-let testPassword = 'pwGoesHere';
+let testPassword = 'password';
 
 /*
 
@@ -131,25 +131,25 @@ describe('contracts', () => {
     {method: 'testInt112', args: [random(-2 ^ 112, 2 ^ 112 -1)]},
     {method: 'testInt120', args: [random(-2 ^ 120, 2 ^ 120 -1)]},
     {method: 'testInt128', args: [random(-2 ^ 128, 2 ^ 128 -1)]},
-    /*{method: 'testInt', args: []},
-    {method: 'testUint8', args: []},
-    {method: 'testUint16', args: []},
-    {method: 'testUint24', args: []},
-    {method: 'testUint32', args: []},
-    {method: 'testUint40', args: []},
-    {method: 'testUint48', args: []},
-    {method: 'testUint56', args: []},
-    {method: 'testUint64', args: []},
-    {method: 'testUint72', args: []},
-    {method: 'testUint80', args: []},
-    {method: 'testUint88', args: []},
-    {method: 'testUint96', args: []},
-    {method: 'testUint104', args: []},
-    {method: 'testUint112', args: []},
-    {method: 'testUint120', args: []},
-    {method: 'testUint128', args: []},
-    {method: 'testUint', args: []},
-    {method: 'testAddress', args: []},
+    //{method: 'testInt', args: []},
+    {method: 'testUint8', args: ['0x' + crypto.randomBytes(1).toString('hex')]},
+    {method: 'testUint16', args: ['0x' + crypto.randomBytes(2).toString('hex')]},
+    {method: 'testUint24', args: ['0x' + crypto.randomBytes(3).toString('hex')]},
+    {method: 'testUint32', args: ['0x' + crypto.randomBytes(4).toString('hex')]},
+    {method: 'testUint40', args: ['0x' + crypto.randomBytes(5).toString('hex')]},
+    {method: 'testUint48', args: ['0x' + crypto.randomBytes(6).toString('hex')]},
+    {method: 'testUint56', args: ['0x' + crypto.randomBytes(7).toString('hex')]},
+    {method: 'testUint64', args: ['0x' + crypto.randomBytes(8).toString('hex')]},
+    {method: 'testUint72', args: ['0x' + crypto.randomBytes(9).toString('hex')]},
+    {method: 'testUint80', args: ['0x' + crypto.randomBytes(10).toString('hex')]},
+    {method: 'testUint88', args: ['0x' + crypto.randomBytes(11).toString('hex')]},
+    {method: 'testUint96', args: ['0x' + crypto.randomBytes(12).toString('hex')]},
+    {method: 'testUint104', args: ['0x' + crypto.randomBytes(13).toString('hex')]},
+    {method: 'testUint112', args: ['0x' + crypto.randomBytes(14).toString('hex')]},
+    {method: 'testUint120', args: ['0x' + crypto.randomBytes(15).toString('hex')]},
+    {method: 'testUint128', args: ['0x' + crypto.randomBytes(16).toString('hex')]},
+    //{method: 'testUint', args: []},
+    /*{method: 'testAddress', args: []},
     {method: 'testByte', args: []},
     {method: 'testFixedBytes1', args: []},
     {method: 'testFixedBytes2', args: []},
@@ -211,7 +211,12 @@ describe('contracts', () => {
         .then(res => {
           console.log(method, "->", args, "->", res);
           if( Web3.utils.isBN(res) ) {
-              [res.toNumber()].should.eql(args)
+              let argsConverted = args;
+              if( typeof args[0] == 'string' ) { 
+                  [Web3.utils.numberToHex(res.toNumber())].should.eql(args)
+              } else {
+                  [res.toNumber()].should.eql(args)
+              }
           } else { 
               [res].should.eql(args)
           }

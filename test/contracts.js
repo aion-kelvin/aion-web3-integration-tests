@@ -102,7 +102,7 @@ describe('contracts', () => {
   
   const mixString = 'mixString'
   const mixFixedUint128Array = [
-      '0x' + crypto.randomBytes(16).toString('hex'),
+  '0x' + crypto.randomBytes(16).toString('hex'),
       '0x' + crypto.randomBytes(16).toString('hex'),
       '0x' + crypto.randomBytes(16).toString('hex')
   ]
@@ -113,7 +113,16 @@ describe('contracts', () => {
   }
 
   let cases = [
+    // WIP
     //{method: 'testMix', args: [mixString, mixFixedUint128Array, mixBool, mixDynamicBytes32Array]},
+    // Omitted because no test data 
+    //{method: 'testInt', args: []},
+    //{method: 'testUint', args: []},
+    /*{method: 'testFixedUint32Array', args: [[]]},
+    {method: 'testFixedUint64Array', args: []},
+    {method: 'testFixedUint96Array', args: []},
+    {method: 'testFixedUint128Array', args: []},*/
+    
     {method: 'testBool', args: [true]},
     {method: 'testInt8', args: [random(-2 ^ 8, 2 ^ 8 -1)]},
     {method: 'testInt16', args: [random(-2 ^ 16, 2 ^ 16 -1)]},
@@ -131,27 +140,30 @@ describe('contracts', () => {
     {method: 'testInt112', args: [random(-2 ^ 112, 2 ^ 112 -1)]},
     {method: 'testInt120', args: [random(-2 ^ 120, 2 ^ 120 -1)]},
     {method: 'testInt128', args: [random(-2 ^ 128, 2 ^ 128 -1)]},
-    //{method: 'testInt', args: []},
-    {method: 'testUint8', args: ['0x' + crypto.randomBytes(1).toString('hex')]},
-    {method: 'testUint16', args: ['0x' + crypto.randomBytes(2).toString('hex')]},
-    {method: 'testUint24', args: ['0x' + crypto.randomBytes(3).toString('hex')]},
-    {method: 'testUint32', args: ['0x' + crypto.randomBytes(4).toString('hex')]},
-    {method: 'testUint40', args: ['0x' + crypto.randomBytes(5).toString('hex')]},
-    {method: 'testUint48', args: ['0x' + crypto.randomBytes(6).toString('hex')]},
-    {method: 'testUint56', args: ['0x' + crypto.randomBytes(7).toString('hex')]},
-    {method: 'testUint64', args: ['0x' + crypto.randomBytes(8).toString('hex')]},
-    {method: 'testUint72', args: ['0x' + crypto.randomBytes(9).toString('hex')]},
-    {method: 'testUint80', args: ['0x' + crypto.randomBytes(10).toString('hex')]},
-    {method: 'testUint88', args: ['0x' + crypto.randomBytes(11).toString('hex')]},
-    {method: 'testUint96', args: ['0x' + crypto.randomBytes(12).toString('hex')]},
-    {method: 'testUint104', args: ['0x' + crypto.randomBytes(13).toString('hex')]},
-    {method: 'testUint112', args: ['0x' + crypto.randomBytes(14).toString('hex')]},
-    {method: 'testUint120', args: ['0x' + crypto.randomBytes(15).toString('hex')]},
-    {method: 'testUint128', args: ['0x' + crypto.randomBytes(16).toString('hex')]},
-    //{method: 'testUint', args: []},
-    /*{method: 'testAddress', args: []},
-    {method: 'testByte', args: []},
-    {method: 'testFixedBytes1', args: []},
+    
+    // TODO why doesn't it work when sent in as hex string
+    {method: 'testUint8', args: [Web3.utils.hexToNumber(crypto.randomBytes(1).toString('hex'))]},
+    {method: 'testUint16', args: [Web3.utils.hexToNumber(crypto.randomBytes(2).toString('hex'))]},
+    {method: 'testUint24', args: [Web3.utils.hexToNumber(crypto.randomBytes(3).toString('hex'))]},
+    {method: 'testUint32', args: [Web3.utils.hexToNumber(crypto.randomBytes(4).toString('hex'))]},
+    {method: 'testUint40', args: [Web3.utils.hexToNumber(crypto.randomBytes(5).toString('hex'))]},
+    {method: 'testUint48', args: [Web3.utils.hexToNumber(crypto.randomBytes(6).toString('hex'))]},
+    {method: 'testUint56', args: [Web3.utils.hexToNumberString(crypto.randomBytes(7).toString('hex'))]},
+    {method: 'testUint64', args: [Web3.utils.hexToNumberString(crypto.randomBytes(8).toString('hex'))]},
+    {method: 'testUint72', args: [Web3.utils.hexToNumberString(crypto.randomBytes(9).toString('hex'))]},
+    {method: 'testUint80', args: [Web3.utils.hexToNumberString(crypto.randomBytes(10).toString('hex'))]},
+    {method: 'testUint88', args: [Web3.utils.hexToNumberString(crypto.randomBytes(11).toString('hex'))]},
+    {method: 'testUint96', args: [Web3.utils.hexToNumberString(crypto.randomBytes(12).toString('hex'))]},
+    {method: 'testUint104', args: [Web3.utils.hexToNumberString(crypto.randomBytes(13).toString('hex'))]},
+    {method: 'testUint112', args: [Web3.utils.hexToNumberString(crypto.randomBytes(14).toString('hex'))]},
+    {method: 'testUint120', args: [Web3.utils.hexToNumberString(crypto.randomBytes(15).toString('hex'))]},
+    {method: 'testUint128', args: [Web3.utils.hexToNumberString(crypto.randomBytes(16).toString('hex'))]},
+    {method: 'testAddress', args: [Web3.utils.toChecksumAddress('0x' + crypto.randomBytes(32).toString('hex')) ]},
+
+
+    // WIP
+    /*{method: 'testByte', args: ['0x' + crypto.randomBytes(1).toString('hex')]},
+    {method: 'testFixedBytes1', args: ['0x' + crypto.randomBytes(1).toString('hex')]},
     {method: 'testFixedBytes2', args: []},
     {method: 'testFixedBytes3', args: []},
     {method: 'testFixedBytes4', args: []},
@@ -182,22 +194,30 @@ describe('contracts', () => {
     {method: 'testFixedBytes29', args: []},
     {method: 'testFixedBytes30', args: []},
     {method: 'testFixedBytes31', args: []},
-    {method: 'testFixedBytes32', args: []},
-    {method: 'testFixedUint16Array', args: []},
-    {method: 'testFixedUint32Array', args: []},
-    {method: 'testFixedUint64Array', args: []},
-    {method: 'testFixedUint96Array', args: []},
-    {method: 'testFixedUint128Array', args: []},
-    {method: 'testFixedByteArray', args: []},
+    {method: 'testFixedBytes32', args: []},*/
+
+    {method: 'testFixedUint16Array', args: [[65535, 0, 61680]]},
+
+    // WIP
+    /*{method: 'testFixedByteArray', args: []},
     {method: 'testFixedBytes1Array', args: []},
     {method: 'testFixedBytes15Array', args: []},
     {method: 'testFixedBytes16Array', args: []},
     {method: 'testFixedBytes32Array', args: []},
     {method: 'testString', args: []},
-    {method: 'testBytes', args: []},
-    {method: 'testDynamicUint8Array', args: []},
-    {method: 'testDynamicUint128Array', args: []},
-    {method: 'testDynamicByteArray', args: []},
+    {method: 'testBytes', args: []},*/
+
+    {method: 'testDynamicUint8Array', args: [[240, 0, 254, 77, 1, 0, 0, 192]]},
+    {method: 'testDynamicUint128Array', args: [[
+      Web3.utils.hexToNumberString(crypto.randomBytes(16).toString('hex')),
+      Web3.utils.hexToNumberString(crypto.randomBytes(16).toString('hex')),
+      Web3.utils.hexToNumberString(crypto.randomBytes(16).toString('hex')),
+      Web3.utils.hexToNumberString(crypto.randomBytes(16).toString('hex')),
+      Web3.utils.hexToNumberString(crypto.randomBytes(16).toString('hex')),
+    ]]},
+
+    // WIP
+    /*{method: 'testDynamicByteArray', args: []},
     {method: 'testDynamicBytes1Array', args: []},
     {method: 'testDynamicBytes15Array', args: []},
     {method: 'testDynamicBytes16Array', args: []},
@@ -213,9 +233,20 @@ describe('contracts', () => {
           if( Web3.utils.isBN(res) ) {
               let argsConverted = args;
               if( typeof args[0] == 'string' ) { 
-                  [Web3.utils.numberToHex(res.toNumber())].should.eql(args)
+                  //[Web3.utils.numberToHex(res.toNumber())].should.eql(args)
+                  [res.toString()].should.eql(args)
               } else {
                   [res.toNumber()].should.eql(args)
+              }
+          } else if ( res instanceof Array ) {
+              if( typeof args[0][0] == 'string' ) {
+                  for(i = 0 ; i < res.length; i++ ) {
+                      res[i].toString().should.eql(args[0][i]);
+                  }
+              } else {
+                  for(i = 0 ; i < res.length; i++ ) {
+                      res[i].toNumber().should.eql(args[0][i]);
+                  }
               }
           } else { 
               [res].should.eql(args)

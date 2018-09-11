@@ -4,7 +4,7 @@
   "description": "",
   "private": true,
   "dependencies": {
-    "aion-web3": "github:tcrowe/aion-web3-convert",
+    "aion-web3": "file:../aion_web3",
     "async": "^2.6.1",
     "eslint": "^5.5.0",
     "eslint-config-prettier": "^2.10.0",
